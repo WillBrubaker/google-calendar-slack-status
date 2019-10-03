@@ -35,7 +35,7 @@ app.post('/', (req, res, next) => {
     status = nodeEmoji.strip(status);
   }
   // additional tokens
-  const dndToken = '[DND]';
+  const dndToken = 'Woo chat';
   const awayToken = '[AWAY]';
   // parse event start/stop time
   const dateFormat = 'MMM D, YYYY [at] hh:mmA';
@@ -47,7 +47,7 @@ app.post('/', (req, res, next) => {
       token,
       num_minutes: end.diff(start, 'minutes')
     });
-    status = status.replace(dndToken, '').trim();
+    status = status.trim();
   }
   // check for AWAY
   slack.users.setPresence({
