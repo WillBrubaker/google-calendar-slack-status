@@ -68,7 +68,7 @@ app.post('/', (req, res, next) => {
   });
   console.log(profile);
   slack.users.profile.set({ token, profile });
-  channel = "T1KEZR45U/CP4AUN4SK";
+  channel = "#app-testing";
   text = ":green-snow::green-snow::blue-fire:";
   slack.chat.postMessage({token, channel, text})
   console.log(`Status set as "${status}" and will expire at ${end.format('h:mm a')}`);
