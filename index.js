@@ -43,11 +43,13 @@ app.post('/', (req, res, next) => {
   const end = moment(req.body.end, dateFormat);
   // check for DND
   if (status.includes(dndToken)) {
+   console.log('Setting snooze');
+   console.log(status);
     slack.dnd.setSnooze({
       token,
       num_minutes: end.diff(start, 'minutes')
     });
-    status = status.trim();
+    //status = status.trim();
   }
   // check for AWAY
   slack.users.setPresence({
