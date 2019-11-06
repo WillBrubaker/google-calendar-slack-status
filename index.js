@@ -27,16 +27,8 @@ app.post('/', (req, res, next) => {
   console.log(req.body);
   // grab status and emojis and clean it up
   let status = req.body.title;
-  let statusEmoji = nodeEmoji.unemojify('🗓');
-  const statusHasEmoji = emojiRegex().exec(status);
-  if (statusHasEmoji) {
-    statusEmoji = nodeEmoji.unemojify(statusHasEmoji[0]);
-    console.log(`CUSTOM EMOJI! ${statusEmoji}`);
-    status = nodeEmoji.strip(status);
-  }
   // additional tokens
   const dndToken = 'Woo Chat';
-  const awayToken = '[AWAY]';
   // parse event start/stop time
   const dateFormat = 'MMM D, YYYY [at] hh:mmA';
   const start = moment(req.body.start, dateFormat);
@@ -49,7 +41,6 @@ app.post('/', (req, res, next) => {
       token,
       num_minutes: end.diff(start, 'minutes')
     });
-    //status = status.trim();
   }
   var emoji = ':chat-green:'
   if ( status.match('Reserve') ) {
@@ -57,16 +48,9 @@ app.post('/', (req, res, next) => {
   }
 
   if ( status.match('Tickets') ) {
-   emoji = ':typing:';
+   emoji = ':zendesk2:';
   }
-  // check for AWAY
-  slack.users.setPresence({
-    token,
-    presence: status.includes(awayToken) ? 'away' : 'auto'
-  });
-  if (status.includes(awayToken)) {
-    status = status.replace(awayToken, '').trim();
-  }
+
   // set status
   status = `${status} from ${start.format('h:mm')} to ${end.format('h:mm a')}`;
   let profile = JSON.stringify({
