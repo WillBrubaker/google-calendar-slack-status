@@ -35,7 +35,7 @@ app.post('/', (req, res, next) => {
     status = nodeEmoji.strip(status);
   }
   // additional tokens
-  const dndToken = 'Woo chat';
+  const dndToken = 'Woo Chat';
   const awayToken = '[AWAY]';
   // parse event start/stop time
   const dateFormat = 'MMM D, YYYY [at] hh:mmA';
@@ -51,6 +51,14 @@ app.post('/', (req, res, next) => {
     });
     //status = status.trim();
   }
+  var emoji = ':chat-green:'
+  if ( status.match('Reserve') ) {
+   emoji = ':happychat:';
+  }
+
+  if ( status.match('Tickets') ) {
+   emoji = ':typing:';
+  }
   // check for AWAY
   slack.users.setPresence({
     token,
@@ -61,10 +69,12 @@ app.post('/', (req, res, next) => {
   }
   // set status
   status = `${status} from ${start.format('h:mm')} to ${end.format('h:mm a')}`;
+  endTime = end + 36000;
+  endTimeStamp = moment(endTime);
   let profile = JSON.stringify({
     "status_text": status,
-    "status_emoji": ":happychat:",
-    "status_expiration": end.unix()
+    "status_emoji": emoji,
+    "status_expiration": endTimeStamp.unix()
   });
   console.log(profile);
   slack.users.profile.set({ token, profile });
