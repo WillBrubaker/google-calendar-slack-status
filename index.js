@@ -69,12 +69,10 @@ app.post('/', (req, res, next) => {
   }
   // set status
   status = `${status} from ${start.format('h:mm')} to ${end.format('h:mm a')}`;
-  endTime = end + 36000;
-  endTimeStamp = moment(endTime);
   let profile = JSON.stringify({
     "status_text": status,
     "status_emoji": emoji,
-    "status_expiration": endTimeStamp.unix()
+    "status_expiration": end.utcOffset(-10,true).unix()
   });
   console.log(profile);
   slack.users.profile.set({ token, profile });
