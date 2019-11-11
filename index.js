@@ -61,10 +61,10 @@ app.post('/', (req, res, next) => {
   console.log(profile);
   slack.users.profile.set({ token, profile });
   //console.log(`Status set as "${status}" and will expire at ${end.format('h:mm a')}`);
-  rememberToGoRedTime = end.unix() + 30;
+  time = end.unix() + 30;
   text = "shift over";
-  slack.reminders.add({token, text, rememberToGoRedTime})
-  console.log('setting reminder to go red for ' + rememberToGoRedTime);
+  slack.reminders.add({token, text, time})
+  console.log('setting reminder to go red for ' + time);
   res.status(200);
   res.send('🤘');
   //const end = moment(req.body.end, dateFormat);
@@ -73,13 +73,13 @@ app.post('/', (req, res, next) => {
    status = "My hat is deep and full of magic";
    emoji = ':partywizard:';
    expiration = 0;
-   let wizardProfile = JSON.stringify({
+   let profile = JSON.stringify({
      "status_text": status,
      "status_emoji": emoji,
      "status_expiration": expiration
    });
    console.log(profile);
-   slack.users.profile.set({ token, wizardProfile });
+   slack.users.profile.set({ token, profile });
   }, wizardStatusStartTime );
 });
 
