@@ -60,7 +60,12 @@ app.post('/', (req, res, next) => {
   });
   console.log(profile);
   slack.users.profile.set({ token, profile });
-  console.log(`Status set as "${status}" and will expire at ${end.format('h:mm a')}`);
+  //console.log(`Status set as "${status}" and will expire at ${end.format('h:mm a')}`);
+  rememberToGoRedTime = end.unix() + 30;
+  text = "shift over";
+  //slack.reminders.add({token, "chat shift over", rememberToGoRedTime});
+  slack.reminders.add({token, text, rememberToGoRedTime})
+  console.log('setting reminder to go red for ' + rememberToGoRedTime);
   res.status(200);
   res.send('🤘');
 });
