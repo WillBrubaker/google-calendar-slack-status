@@ -69,6 +69,7 @@ app.post('/', (req, res, next) => {
   res.send('🤘');
   //const end = moment(req.body.end, dateFormat);
   wizardStatusStartTime = end.diff(start, 'seconds') * 1000;
+  console.log("scheduling wizard status for " + wizardStatusStartTime + " ms from now");
   setTimeout(function(){
    status = "My hat is deep and full of magic";
    emoji = ':partywizard:';
