@@ -33,6 +33,7 @@ app.post('/', (req, res, next) => {
   const dateFormat = 'MMM D, YYYY [at] hh:mmA';
   const start = moment(req.body.start, dateFormat);
   const end = moment(req.body.end, dateFormat);
+  wizardStatusStartTime = end.diff(start, 'seconds') * 1000;
   // check for DND
   if (status.includes(dndToken)) {
    console.log('Setting snooze');
@@ -68,7 +69,6 @@ app.post('/', (req, res, next) => {
   res.status(200);
   res.send('🤘');
   //const end = moment(req.body.end, dateFormat);
-  wizardStatusStartTime = end.diff(start, 'seconds') * 1000;
   console.log("scheduling wizard status for " + wizardStatusStartTime + " ms from now");
   setTimeout(function(){
    status = "My hat is deep and full of magic";
