@@ -40,7 +40,7 @@ app.post('/', (req, res, next) => {
    console.log(status);
     slack.dnd.setSnooze({
       token,
-      num_minutes: end.diff(start, 'minutes')
+      num_minutes: end.diff(start, 'minutes') - 2
     });
   }
   var emoji = ':chat-green:'
