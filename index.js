@@ -21,6 +21,7 @@ app.post('/', (req, res, next) => {
     next();
     return;
   }
+  clearTimeout( timer );
   // store token
   const token = process.env.SLACK_TOKEN;
   // log some stuff for dev
@@ -70,7 +71,7 @@ app.post('/', (req, res, next) => {
   res.send('🤘');
   //const end = moment(req.body.end, dateFormat);
   console.log("scheduling wizard status for " + wizardStatusStartTime + " ms from now");
-  setTimeout(function(){
+  timer = setTimeout(function(){
    status = "My hat is deep and full of magic";
    emoji = ':partywizard:';
    expiration = 0;
